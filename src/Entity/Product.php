@@ -23,7 +23,7 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=2)
+     * @ORM\Column(type="string", length=3)
      */
     private $emplacement;
 
@@ -31,6 +31,16 @@ class Product
      * @ORM\Column(type="integer")
      */
     private $quantity;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $img;
 
     public function getId(): ?int
     {
@@ -69,6 +79,30 @@ class Product
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }
