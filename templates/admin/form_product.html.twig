@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+
+	{{form_start(productForm)}}
+
+	{{form_label(productForm.name,'Nom :', {'label_attr' : {'class' : 'label'}})}}
+	{{form_widget(productForm.name, {'attr' : {'class' : 'input', 'placeholder' : 'Nom'}})}}
+
+	{{form_label(productForm.description,'Description  :', {'label_attr' : {'class' : 'label'}})}}
+	{{form_widget(productForm.description, {'attr' : {'class' : 'input', 'placeholder' : 'Description'}})}}
+
+	{{form_label(productForm.emplacement,'Emplacement :', {'label_attr' : {'class' : 'label'}})}}
+	{{form_widget(productForm.emplacement, {'attr' : {'class' : 'input', 'placeholder' : 'Emplacement'}})}}
+
+	{{form_label(productForm.quantity,'Quantité:', {'label_attr' : {'class' : 'label'}})}}
+	{{form_widget(productForm.quantity, {'attr' : {'class' : 'input', 'placeholder' : 'Quantité'}})}}
+
+	{{form_label(productForm.img,'Photo :', {'label_attr' : {'class' : 'label'}})}}
+	{{form_widget(productForm.img, {'attr' : {'class' : 'input', 'placeholder' : 'Photo '}})}}
+
+	{{form_widget(productForm.Enregistrer, {'attr' : {'class' : 'input',}})}}
+
+
+	{{form_end(productForm)}}
+{% endblock %}
