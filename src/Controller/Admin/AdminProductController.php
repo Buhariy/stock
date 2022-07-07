@@ -57,4 +57,49 @@ class AdminProductController extends AbstractController
 
         return $this->render("admin/form_product.html.twig", ["productForm" => $productForm->createView()]);
     }
+    /**
+     * @Route("/admin/updateproduct/{id}", name="admin_update_product")
+     */
+    public function updateProduct($id, ProductRepository $productRepository, EntityManagerInterface $entityManagerInterface, SluggerInterface $sluggerInterface, Request $request)
+    {
+        $product = $productRepository->find($id);
+
+        $productForm = $this->createForm(ProductType::class, $product);
+        $productForm->handleRequest($request);
+
+        if ($productForm->isSubmitted() && $productForm->isValid()) {
+            $productFile = $productForm->get('img')->getData();
+
+            if ($productFile) {
+                $originaleFileName = pathinfo($productFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $sluggerInterface->slug($originaleFileName);
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $productFile->guessExtension();
+
+                $productFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFileName
+                );
+
+                $product->setImg($newFileName);
+            }
+            $entityManagerInterface->persist($product);
+            $entityManagerInterface->flush();
+
+            return $this->redirectToRoute("admin_list_product");
+        }
+
+        return $this->render("admin/form_product.html.twig", ["productForm" => $productForm->createView()]);
+    }
+
+    /**
+     * @Route("/admin/deleteproduct/{id}", name="admin_delete_product")
+     */
+    public function deleteProduct($id, ProductRepository $productRepository, EntityManagerInterface $entityManagerInterface)
+    {
+        $product = $productRepository->find($id);
+        $entityManagerInterface->remove($product);
+        $entityManagerInterface->flush();
+
+        return $this->redirectToRoute("admin_list_product");
+    }
 }

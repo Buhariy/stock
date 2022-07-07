@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+
+	{{form_start(categoryForm)}}
+
+	{{form_label(categoryForm.name,'Nom :', {'label_attr' : {'class' : 'label'}})}}
+	{{form_widget(categoryForm.name, {'attr' : {'class' : 'input', 'placeholder' : 'Nom'}})}}
+
+	{{form_widget(categoryForm.Enregistrer, {'attr' : {'class' : 'input',}})}}
+
+
+	{{form_end(categoryForm)}}
+
+{% endblock %}
